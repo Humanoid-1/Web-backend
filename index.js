@@ -16,7 +16,24 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(cors());
+const allowedOrigins = [
+  "https://web-frontend-pi-sable.vercel.app", // your deployed frontend
+  "http://localhost:5173"                     // local dev
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow Postman, mobile apps
+      if (allowedOrigins.indexOf(origin) === -1) {
+        return callback(new Error(`CORS policy: ${origin} not allowed`), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // Serve uploads
