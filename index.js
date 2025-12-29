@@ -16,7 +16,26 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(cors());
+// ------------------- CORS Setup -------------------
+// Only allow production frontend
+const allowedOrigins = [
+  "https://web-frontend-pi-sable.vercel.app"
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (mobile apps, Postman, etc.)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        return callback(new Error(`CORS policy: This origin (${origin}) is not allowed`), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 // Serve uploads
@@ -31,7 +50,7 @@ app.use("/api/payment", paymentRoutes);
 // Error handler (after routes)
 app.use(errorHandler);
 
-// MongoDB connection
+// ------------------- MongoDB connection -------------------
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
