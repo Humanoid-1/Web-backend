@@ -17,7 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const allowedOrigins = [
-  "web-frontend-oq2y.vercel.app", // your deployed frontend
+   "https://web-frontend-oq2y.vercel.app", // your deployed frontend
   "http://localhost:5173"                     // local dev
 ];
 
