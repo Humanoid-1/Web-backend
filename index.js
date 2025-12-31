@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 
 const allowedOrigins = [
    "https://web-frontend-oq2y.vercel.app", // your deployed frontend
-  "http://localhost:5173"                     // local dev
+  "http://localhost:5173"                     // local development
 ];
 
 app.use(
