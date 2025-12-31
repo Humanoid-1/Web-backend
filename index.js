@@ -17,14 +17,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const allowedOrigins = [
-   "https://web-frontend-oq2y.vercel.app", // your deployed frontend
-  "http://localhost:5173"                     // local development
+  "https://web-frontend-pi-sable.vercel.app", // deployed frontend
+  "http://localhost:5173"                      // local dev
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // allow Postman, mobile apps
+      if (!origin) return callback(null, true); // allow Postman or mobile apps
       if (allowedOrigins.indexOf(origin) === -1) {
         return callback(new Error(`CORS policy: ${origin} not allowed`), false);
       }
